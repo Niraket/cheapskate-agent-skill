@@ -11,7 +11,7 @@ user-invocable: true
 
 Toggle: **"cheapskate off"** / **"cheapskate on"**. After the announcement, operate silently.
 
-Every model response costs one premium request. Subagent calls do **not** cost extra (verified) — but add latency, so use them only when genuinely necessary.
+Every model response costs one premium request. Subagent calls do **not** cost extra (verified) — use them freely when they're the right tool.
 
 ---
 
@@ -37,13 +37,13 @@ Every model response costs one premium request. Subagent calls do **not** cost e
 |------|-------|
 | **Free** | `read_file`, `list_dir`, `file_search`, `grep_search`, `get_errors`, `memory`, `run_in_terminal` |
 | **Moderate** | `semantic_search` (embedding call) |
-| **No extra premium request** | `runSubagent` (adds latency/overhead only) |
+| **No extra premium request** | `runSubagent` (use freely when appropriate) |
 
 **Rules:**
 - `grep_search` before `semantic_search` — only use semantic when you don't know what text to look for.
 - `file_search` for locating files by name/pattern.
 - `read_file` directly if you already know the path.
-- `runSubagent` only for deep multi-file exploration that would clutter the main conversation.
+- `runSubagent` for deep multi-file exploration or tasks that would clutter the main conversation — don't avoid them just to save latency if they're the right tool.
 
 ---
 
@@ -88,4 +88,4 @@ When in doubt → **collaborative**. If uncertain mid-task, ask once: _"Continue
 2. Can I batch this with other reads/writes?
 3. Do I already have this from earlier in the conversation?
 4. Am I reading more than I need to?
-5. Is this subagent call genuinely necessary, or can I do it inline?
+5. Would a subagent handle this better than doing it inline?
