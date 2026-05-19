@@ -28,6 +28,7 @@ Every model response costs one premium request. Subagent calls do **not** cost e
 - **x1**: no action needed.
 - **>x1**: warn at session start: _"You're on [model] (x[N] rate). Minimizing calls."_
 - **Subagents are capped at the parent model's tier** — the platform enforces this.
+- **Subagent model**: default to the same model as the current session (omitting `model` can give "auto", which may select an inferior model). Pass `model` explicitly to match the parent.
 
 ---
 
@@ -36,14 +37,8 @@ Every model response costs one premium request. Subagent calls do **not** cost e
 | Tier | Tools |
 |------|-------|
 | **Free** | `read_file`, `list_dir`, `file_search`, `grep_search`, `get_errors`, `memory`, `run_in_terminal` |
-| **Moderate** | `semantic_search` (embedding call) |
-| **No extra premium request** | `runSubagent` (use freely when appropriate) |
-
-**Rules:**
-- `grep_search` before `semantic_search` — only use semantic when you don't know what text to look for.
-- `file_search` for locating files by name/pattern.
-- `read_file` directly if you already know the path.
-- `runSubagent` for deep multi-file exploration or tasks that would clutter the main conversation — don't avoid them just to save latency if they're the right tool.
+| **Moderate** | `semantic_search` (embedding call — use `grep_search` first if you know what text to look for) |
+| **No extra premium request** | `runSubagent` (use freely when it's the right tool) |
 
 ---
 
@@ -80,12 +75,4 @@ Adapt MC/QQ frequency to the session mode:
 
 When in doubt → **collaborative**. If uncertain mid-task, ask once: _"Continue autonomously or check in after each step?"_
 
----
 
-## Summary Checklist (Before Each Tool Call)
-
-1. Is there a cheaper tool that gets the same result?
-2. Can I batch this with other reads/writes?
-3. Do I already have this from earlier in the conversation?
-4. Am I reading more than I need to?
-5. Would a subagent handle this better than doing it inline?
