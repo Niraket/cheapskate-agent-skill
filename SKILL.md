@@ -26,7 +26,7 @@ Every model response costs one premium request. Subagent calls do **not** cost e
 | **x15–x20** | o3, o3-mini (high), Claude Opus 3 |
 
 - **x1**: no action needed.
-- **>x1**: warn at session start: _"You're on [model] (x[N] rate). Minimizing calls."_
+- **>x1**: append a warning **at the end of your first response** (don't interrupt the actual work): _"⚠️ You're on [model] (x[N] rate). Consider switching to an x1 model to conserve credits."_ — only once per session.
 - **Subagents are capped at the parent model's tier** — the platform enforces this.
 - **Subagent model**: default to the same model as the current session (omitting `model` can give "auto", which may select an inferior model). Pass `model` explicitly to match the parent.
 
